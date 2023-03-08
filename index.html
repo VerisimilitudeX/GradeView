@@ -1,95 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DailyDirector - Simplifying your life</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <style>
-        :root {
-                --font1: Calibri;
-                --font2: Arial;
-                --font3: Helvetica;
-                --color1: #b5def7;
-                --color2: #f2f2f2;
-                --color3: #032a7c;
-                --search-bar-1: #ffffff;
-                --search-bar-2: #4d4d4d;
-                --search-bar-font: 'HelveticaNeue-Light', "Helvetica Neue Light", "Helvetica Neue", Helvetica;
-                --task-1: #ffffff;
-                --task-2: #000000;
-                --task-font: Arial;     
-            }
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 20px;
-        }
-            .favicon {
-        width: 30px;
-        height: 30px;
-    }
+    <title>Index</title>
+</head>
 
-        h1 {
-            text-align: center;
-            margin-top: 50px;
-            font-size: 36px;
-        }
+<body>
+    <div id="container">
+        <input type="text" id="login">
+        <input type="password" id="pwd">
+        <button id="submit">Submit</button>
+    </div>
+    <script>
+        var login = document.getElementById("login");
+        var password = document.getElementById("pwd");
+        var submit = document.getElementById("submit");
 
-        h2 {
-            text-align: center;
-            margin-top: 50px;
-            font-size: 28px;
-            font-weight: bold;
+        function auth(body) {
+            return fetch("./auth", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(body)
+            }).then(res => res.text());
         }
+        submit.addEventListener('click', (e) => {
+            auth({
+                action: "login",
+                usr: login.value,
+                pwd: password.value
+            }).then(res => {
+                console.log(res);
+            });
+        })
+    </script>
+</body>
 
-        h3 {
-            text-align: center;
-            margin-top: 30px;
-            font-size: 18px;
-            font-weight: normal;
-            line-height: 1.5;
-            padding: 10px;
-        }
-
-        video {
-            display: block;
-            margin: 0 auto;
-            width: 80%;
-            height: auto;
-            z-index: -1;
-            position: relative;
-        }
-        .navbar {
-            position: sticky;
-            top: 0;
-            background-color: var(--color3);
-        }
-        .navbar a {
-            color: var(--color1);
-            text-decoration: none;
-            font-size: 18px;
-            font-weight: bold;
-            padding: 10px;
-        }
-    </style>
-    </head>
-    <body>
-        <nav class="navbar">
-            <!-- make /static/img/favicon.png a link to the home page / -->
-            <a href="/"><img class="favicon" src="/img/favicon.png" alt="DailyDirector Logo" width="32" height="32"></a>
-            <div>
-                <a href="/todo">Planner</a>
-                <a href="/finance">Finance</a>
-            </div>
-        </nav>
-        <h1>Simplify your life with DailyDirector</h1>
-    <h2>An all-in-one web application to streamline your daily routine</h2>
-    <video src="video.mp4" controls></video>
-    <h2>Why choose DailyDirector?</h2>
-    <h3>
-        Save up to 2 hours of valuable time by simplifying your life with DailyDirector. From task planning to shopping lists and financial management, DailyDirector covers all aspects of your personal and work life. Don't waste another minute managing your life the hard way, start using DailyDirector today and experience the ease of organization and productivity!
-    </h3>
-    </body>
-    </html>
+</html>

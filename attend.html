@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <title>Attendance</title>
+</head>
+
+<body class="bg-light">
+    <div class="container my-5">
+        <h1>Attendance</h1>
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th style="width: 25%">Class Name</th>
+                    <th style="width: 25%">Teacher Name</th>
+                    <th style="width: 25%">Tardies</th>
+                    <th style="width: 25%">Absences</th>
+                </tr>
+            </thead>
+            <tbody id="info">
+                <tr>
+                    <td>Math 101</td>
+                    <td>Ms. Smith</td>
+                    <td>3 Excused<br>4 Unexcused</td>
+                    <td>5 Excused<br>2 Unexcused</td>
+                </tr>
+                <tr>
+                    <td>English 201</td>
+                    <td>Mr. Brown</td>
+                    <td>2 Excused<br>3 Unexcused</td>
+                    <td>1 Excused<br>6 Unexcused</td>
+                </tr>
+                <tr>
+                    <td>History 301</td>
+                    <td>Dr. Johnson</td>
+                    <td>1 Excused<br>5 Unexcused</td>
+                    <td>4 Excused<br>3 Unexcused</td>
+                </tr>
+                <tr>
+                    <td>Science 401</td>
+                    <td>Ms. Davis</td>
+                    <td>2 Excused<br>2 Unexcused</td>
+                    <td>3 Excused<br>5 Unexcused</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script src="./redirect.js"></script>
+    <script>
+        schedule(data => {
+            var text = "";
+            var start = Infinity;
+            var end = -1;
+            for (var i = 0; i < data.StudentClassSchedule.ClassLists.ClassListing.length; i++) {
+                text += `<tr>
+                            <td>${data.StudentClassSchedule.ClassLists.ClassListing[i].CourseTitle}</td>
+                            <td>${data.StudentClassSchedule.ClassLists.ClassListing[i].Teacher}</td>
+                            <td id="pert${data.StudentClassSchedule.ClassLists.ClassListing[i].Period}"> Excused<br> Unexcused</td>
+                            <td id="pera${data.StudentClassSchedule.ClassLists.ClassListing[i].Period}"> Excused<br> Unexcused</td>
+                          </tr>`;
+                end = Math.max(end, data.StudentClassSchedule.ClassLists.ClassListing[i].Period)
+                start = Math.min(start, data.StudentClassSchedule.ClassLists.ClassListing[i].Period)
+            }
+            document.getElementById('info').innerHTML = text;
+            attendance(data => {
+                data = data.Attendance;
+                var text = ``;
+                for (var i = start; i <= end; i++) {
+                    var tu = parseInt(data.TotalUnexcusedTardies.PeriodTotal[i].Total);
+                    var te = parseInt(data.TotalTardies.PeriodTotal[i].Total);
+                    var ae = parseInt(data.TotalExcused.PeriodTotal[i].Total);
+                    var au = parseInt(data.TotalUnexcused.PeriodTotal[i].Total);
+
+                    console.log(te, tu, ae, au);
+                    document.getElementById(`pert${i}`).innerHTML = `${te} Excused<br>${tu} Unexcused`;
+                    document.getElementById(`pera${i}`).innerHTML = `${ae} Excused<br>${au} Unexcused`;
+
+
+
+
+
+                    const readline = require('readline').createInterface({
+                        input: process.stdin,
+                        output: process.stdout
+                    });
+
+                    const accountSid = 'AC1c6f2c1bc5464a13f7441a08cb786484';
+                    const authToken = 'e6cf1e3c8d1351ad74d95570b81947b4';
+                    const client = require('twilio')(accountSid, authToken);
+
+                    readline.question("Enter your phone number: ", (toNumber) => {
+                        client.messages
+                            .create({
+                                body: text,
+                                messagingServiceSid: 'MG34f311cee9de073e8b59e8a180e5ec98',
+                                to: toNumber
+                            })
+                            .then(message => console.log(message.sid))
+                            .done();
+                        readline.close();
+                    });
+
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>

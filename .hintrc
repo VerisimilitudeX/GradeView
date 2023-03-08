@@ -3,13 +3,7 @@
     "development"
   ],
   "hints": {
-    "axe/text-alternatives": [
-      "default",
-      {
-        "document-title": "off"
-      }
-    ],
-    "meta-charset-utf-8": "off",
+    "no-inline-styles": "off",
     "axe/language": [
       "default",
       {
@@ -17,12 +11,29 @@
       }
     ],
     "meta-viewport": "off",
-    "highest-available-document-mode": "off",
-    "no-inline-styles": "off"
-  },
-  "browserslist": [
-    "defaults",
-    "not ie 11",
-    "not ios_saf <= 14.8"
-  ]
+    "axe/forms": [
+      "default",
+      {
+        "label": "off"
+      }
+    ],
+    "axe/text-alternatives": [
+      "default",
+      {
+        "document-title": "off"
+      }
+    ],
+    "axe/aria": [
+      "default",
+      {
+        "aria-progressbar-name": "off"
+      }
+    ],
+    "axe/parsing": [
+      "default",
+      {
+        "duplicate-id-aria": "off"
+      }
+    ]
+  }
 }

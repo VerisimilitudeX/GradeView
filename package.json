@@ -1,23 +1,25 @@
 {
-  "name": "hackpnw",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/hacktronautshackpnw/hackpnw.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/hacktronautshackpnw/hackpnw/issues"
-  },
-  "homepage": "https://github.com/hacktronautshackpnw/hackpnw#readme",
-  "dependencies": {
-    "express": "^4.18.2"
-  }
+    "dependencies": {
+        "express": "^4.18.2",
+        "express-session": "^1.17.3",
+        "studentvue.js": "^0.1.1",
+        "twilio": "^3.84.1"
+    },
+    "name": "new",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/hacktronautshackpnw/new.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/hacktronautshackpnw/new/issues"
+    },
+    "homepage": "https://github.com/hacktronautshackpnw/new#readme",
+    "description": ""
 }

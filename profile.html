@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+    <style>
+        /* added custom styles */
+        
+        h1 {
+            font-weight: bold;
+            color: #000;
+        }
+        
+        h3 {
+            font-weight: bold;
+            color: #333;
+        }
+        
+        #prof-pic {
+            width: 30%;
+        }
+        
+        .container {
+            padding: 2em;
+        }
+    </style>
+
+    <title>Profile Page</title>
+</head>
+
+<body>
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-12 col-md-6 order-2 order-md-1">
+                <h3>About Me</h3>
+                <p id="about">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod egestas congue.
+                </p>
+            </div>
+            <div class="col-12 col-md-6 order-1 order-md-2 text-center">
+                <img id='prof-pic' src="https://via.placeholder.com/150" alt="Profile Picture" class="mb-3" />
+                <h1 id="name"></h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <h3 class="mt-5">Contact Information</h3>
+                <ul class="list-group">
+                    <li class="list-group-item" id="email">Email: john.doe@example.com</li>
+                    <li class="list-group-item" id="phone">Phone: +1 (555) 555-5555</li>
+                    <li class="list-group-item" id="address">Location: New York, NY</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="./redirect.js"></script>
+    <script>
+        check(input => input);
+        studentInfo((data) => {
+            var info = data.StudentInfo;
+            document.getElementById("name").innerHTML = `${info.FormattedName}`;
+            document.getElementById('prof-pic').src = "data:image/png;base64," + info.Photo;
+            document.getElementById('prof-pic').style.borderRadius = "8px";
+            document.getElementById('prof-pic').style.border = "3px solid #000";
+            document.getElementById("about").innerHTML = `Student ID: ${info.PermID}<br>Grade: ${info.Grade}<br>Date of Birth: ${info.BirthDate}`;
+            document.getElementById("email").innerHTML = `Email: ${info.EMail}`;
+            document.getElementById("phone").innerHTML = `Phone: ${info.Phone}`;
+            document.getElementById("address").innerHTML = `Location: ${info.Address}`;
+        })
+    </script>
+</body>
+
+</html>

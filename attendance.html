@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .period-container {
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+        }
+        
+        .period-name {
+            font-weight: bold;
+            width: 70px;
+            text-align: center;
+        }
+        
+        .progress {
+            height: 20px;
+            width: 100%;
+            background-color: lightgray;
+            border-radius: 25px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .present {
+            background-color: green;
+            width: 50%;
+        }
+        
+        .tardy {
+            background-color: yellow;
+            width: 25%;
+        }
+        
+        .absent {
+            background-color: red;
+            width: 25%;
+        }
+        
+        .progress-bar-text {
+            position: absolute;
+            color: white;
+            font-weight: bold;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        
+        .tooltip {
+            position: absolute;
+            display: inline-block;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: black;
+            color: white;
+            padding: 5px;
+            border-radius: 5px;
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s, opacity 0.5s linear;
+            z-index: 1;
+        }
+        
+        .progress-bar:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="text-center my-5">Attendance</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Period</th>
+                    <th>Attendance</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="period-name">1st</td>
+                    <td style="padding-top: 1.35%;">
+                        <div class="progress">
+                            <div class="present progress-bar" data-toggle="tooltip" title="Present: 5 times"></div>
+                            <div class="tardy progress-bar" data-toggle="tooltip" title="Tardy: 2 times"></div>
+                            <div class="absent progress-bar" data-toggle="tooltip" title="Absent: 2 times"></div>
+
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="period-name">2nd</td>
+                    <td style="padding-top: 1.35%;">
+                        <div class="progress">
+                            <div class="tardy progress-bar" data-toggle="tooltip" title="Tardy: 5 times">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="period-name">3rd</td>
+                    <td style="padding-top: 1.35%;">
+                        <div class="progress">
+                            <div class="absent progress-bar" data-toggle="tooltip" title="Absent: 5 times">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="period-name">4th</td>
+                    <td style="padding-top: 1.35%;">
+                        <div class="progress">
+                            <div class="present progress-bar" data-toggle="tooltip" title="Present: 5 times"></div>
+                            <div class="tardy progress-bar" data-toggle="tooltip" title="Tardy: 2 times"></div>
+                            <div class="absent progress-bar" data-toggle="tooltip" title="Absent: 2 times"></div>
+
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="period-name">5th</td>
+                    <td style="padding-top: 1.35%;">
+                        <div class="progress">
+                            <div class="tardy progress-bar" data-toggle="tooltip" title="Tardy: 5 times">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="period-name">6th</td>
+                    <td style="padding-top: 1.35%;">
+                        <div class="progress">
+                            <div class="absent progress-bar" data-toggle="tooltip" title="Absent: 5 times">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="period-name">7th</td>
+                    <td style="padding-top: 1.35%;">
+                        <div class="progress">
+                            <div class="present progress-bar" data-toggle="tooltip" title="Present: 5 times"></div>
+                            <div class="tardy progress-bar" data-toggle="tooltip" title="Tardy: 2 times"></div>
+                            <div class="absent progress-bar" data-toggle="tooltip" title="Absent: 2 times"></div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script src="./redirect.js"></script>
+    <script>
+        attendance(data => {
+            data = data.Attendance;
+            var text = `<tr>
+                    <td class="period-name">1st</td>
+                    <td style="padding-top: 1.35%;">
+                        <div class="progress">
+                            <div class="present progress-bar" data-toggle="tooltip" title="Present: 5 times"></div>
+                            <div class="tardy progress-bar" data-toggle="tooltip" title="Tardy: 2 times"></div>
+                            <div class="absent progress-bar" data-toggle="tooltip" title="Absent: 2 times"></div>
+
+                        </div>
+                    </td>
+                </tr>`;
+            console.log(data.StartPeriod, data.EndPeriod);
+            for (var i = parseInt(data.StartPeriod); i <= parseInt(data.EndPeriod); i++) {
+                var tu = parseInt(data.TotalUnexcusedTardies.PeriodTotal[i].Total);
+                var te = parseInt(data.TotalTardies.PeriodTotal[i].Total);
+                var ae = parseInt(data.TotalExcused.PeriodTotal[i].Total) + data.Absences.Absence.length;
+                var au = parseInt(data.TotalUnexcused.PeriodTotal[i].Total);
+                console.log(te, tu, ae, au);
+                text += `<tr>
+                    <td class="period-name">1st</td>
+                    <td style="padding-top: 1.35%;">
+                        <div class="progress">
+                            <div class="present progress-bar" data-toggle="tooltip" title="Present: 5 times"></div>
+                            <div class="tardy progress-bar" data-toggle="tooltip" title="Tardy: 2 times"></div>
+                            <div class="absent progress-bar" data-toggle="tooltip" title="Absent: 2 times"></div>
+                        </div>
+                    </td>
+                </tr>`;
+            }
+        })
+    </script>
+</body>
+
+</html>
