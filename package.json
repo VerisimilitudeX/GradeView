@@ -3,7 +3,7 @@
         "express": "^4.18.2",
         "express-session": "^1.17.3",
         "studentvue.js": "^0.1.1",
-        "twilio": "^3.84.1"
+        "twilio": "^4.8.0"
     },
     "name": "new",
     "version": "1.0.0",
